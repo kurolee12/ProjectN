@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo Thống Kê An Sinh Xã Hội Việt Nam - Các Nhóm Yếu Thế</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        mint: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                        },
+                        pastelGreen: '#A8E6CF',
+                        pastelBlue: '#56C596',
+                        skySoft: '#E0F2FE',
+                        coralAccent: '#FF8B94',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(86, 197, 150, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #A8E6CF;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-teal-200">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-teal-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-emerald-500 text-white rounded-xl shadow-md">
+                    <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg sm:text-xl text-slate-900 leading-tight">SocialCare VN</h1>
+                    <p class="text-xs text-slate-500 hidden sm:block">Trực quan hóa Dữ liệu An sinh Xã hội Việt Nam</p>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+                <button onclick="scrollToSection('overview')" class="px-4 py-1.5 text-sm font-medium rounded-lg hover:bg-white transition text-slate-700">Tổng Quan</button>
+                <button onclick="scrollToSection('groups')" class="px-4 py-1.5 text-sm font-medium rounded-lg hover:bg-white transition text-slate-700">Nhóm Đối Tượng</button>
+                <button onclick="scrollToSection('regions')" class="px-4 py-1.5 text-sm font-medium rounded-lg hover:bg-white transition text-slate-700">Địa Phương</button>
+                <button onclick="scrollToSection('priority')" class="px-4 py-1.5 text-sm font-medium rounded-lg hover:bg-white transition text-slate-700">Đánh Giá Ưu Tiên</button>
+                <button onclick="scrollToSection('solutions')" class="px-4 py-1.5 text-sm font-medium rounded-lg hover:bg-white transition text-slate-700">Giải Pháp</button>
+            </nav>
+
+            <div class="flex items-center gap-2">
+                <a href="#sources" class="text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-2 rounded-xl transition flex items-center gap-1.5">
+                    <i data-lucide="file-check" class="w-4 h-4"></i> Nguồn Dữ Liệu
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Hero Section -->
+        <section id="overview" class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-600 via-emerald-600 to-teal-800 text-white p-6 sm:p-10 shadow-xl">
+            <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+                <i data-lucide="users" class="w-96 h-96"></i>
+            </div>
+            <div class="relative z-10 max-w-3xl space-y-4">
+                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium text-teal-100">
+                    <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Niên giám Dữ liệu 2020 - 2023 (Cập nhật NSO, UNICEF, UNFPA)
+                </div>
+                <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight leading-snug">
+                    Bức Tranh Tổng Quan Về Các Nhóm Đối Tượng Yếu Thế Tại Việt Nam
+                </h2>
+                <p class="text-teal-50 text-sm sm:text-base leading-relaxed">
+                    Nghiên cứu & Trực quan hóa dữ liệu thống kê toàn quốc về <strong>Người cao tuổi</strong>, <strong>Trẻ em mồ côi</strong> và <strong>Người khuyết tật</strong>. Hệ thống phân tích định hướng giải pháp an sinh và phân bổ nguồn lực trợ giúp xã hội hiệu quả.
+                </p>
+                <div class="pt-2 flex flex-wrap gap-4 text-slate-900">
+                    <div class="bg-white/95 backdrop-blur rounded-2xl p-4 flex-1 min-w-[140px] shadow-sm">
+                        <div class="text-xs font-medium text-slate-500">Người cao tuổi</div>
+                        <div class="text-2xl font-bold text-teal-700">16,1 Tr</div>
+                        <div class="text-[11px] text-slate-400">~17% dân số toàn quốc</div>
+                    </div>
+                    <div class="bg-white/95 backdrop-blur rounded-2xl p-4 flex-1 min-w-[140px] shadow-sm">
+                        <div class="text-xs font-medium text-slate-500">Trẻ em mồ côi</div>
+                        <div class="text-2xl font-bold text-amber-600">~4,400</div>
+                        <div class="text-[11px] text-slate-400">Đặc biệt mất nguồn nuôi dưỡng</div>
+                    </div>
+                    <div class="bg-white/95 backdrop-blur rounded-2xl p-4 flex-1 min-w-[140px] shadow-sm">
+                        <div class="text-xs font-medium text-slate-500">Người khuyết tật</div>
+                        <div class="text-2xl font-bold text-sky-600">7,06 Tr</div>
+                        <div class="text-[11px] text-slate-400">7,06% dân số (từ 2 tuổi+)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Groups Tabs -->
+        <section id="groups" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+                        <i data-lucide="bar-chart-3" class="w-6 h-6 text-teal-600"></i> Phân Tích Chi Tiết Theo Nhóm
+                    </h3>
+                    <p class="text-sm text-slate-500">Xem chỉ số thống kê thấu đáo của từng nhóm đối tượng</p>
+                </div>
+                <!-- Tabs Controls -->
+                <div class="flex bg-slate-200/70 p-1 rounded-2xl gap-1 self-start sm:self-auto">
+                    <button onclick="switchTab('elderly')" id="tab-elderly" class="tab-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl transition bg-white text-teal-700 shadow-sm flex items-center gap-1.5">
+                        <i data-lucide="user" class="w-4 h-4"></i> Người Cao Tuổi
+                    </button>
+                    <button onclick="switchTab('orphans')" id="tab-orphans" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
+                        <i data-lucide="baby" class="w-4 h-4"></i> Trẻ Mồ Côi
+                    </button>
+                    <button onclick="switchTab('disabled')" id="tab-disabled" class="tab-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
+                        <i data-lucide="accessibility" class="w-4 h-4"></i> Người Khuyết Tật
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Content: Elderly -->
+            <div id="content-elderly" class="tab-content grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white rounded-3xl p-6 border border-slate-100 card-shadow space-y-6">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-lg text-slate-900 flex items-center gap-2">
+                            <i data-lucide="trending-up" class="w-5 h-5 text-emerald-600"></i> Xu Hướng Già Hóa Dân Số Tại Việt Nam
+                        </h4>
+                        <span class="bg-emerald-50 text-emerald-700 text-xs px-2.5 py-1 rounded-full font-medium">Nguồn: UNFPA & GSO</span>
+                    </div>
+                    <div class="h-64 sm:h-72">
+                        <canvas id="elderlyChart"></canvas>
+                    </div>
+                    <div class="bg-slate-50 rounded-2xl p-4 text-xs sm:text-sm text-slate-600 space-y-2 border border-slate-100">
+                        <p><strong>Thực trạng:</strong> Việt Nam là một trong những quốc gia có tốc độ già hóa dân số nhanh nhất thế giới. Dự báo đến năm 2038, Việt Nam sẽ chính thức chuyển từ xã hội "đang già" sang "xã hội già".</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl p-6 border border-slate-100 card-shadow space-y-5 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center font-bold">
+                            <i data-lucide="map-pin" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-bold text-lg text-slate-900">Đặc Điểm Vùng Miền</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Các tỉnh khu vực Đồng bằng sông Hồng như <strong>Thái Bình, Nam Định</strong> và tỉnh <strong>Bến Tre</strong> (ĐBSCL) ghi nhận chỉ số già hóa cao nhất cả nước.
+                        </p>
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-100 text-xs text-amber-800">
+                            <strong>Lý do chính:</strong> Mức sinh giảm sâu kéo dài kết hợp với làn sóng lao động trẻ di cư về các đô thị lớn lập nghiệp.
+                        </div>
+                    </div>
+                    <div class="border-t border-slate-100 pt-4">
+                        <div class="text-xs font-semibold text-slate-400 uppercase">Chỉ Số Già Hóa</div>
+                        <div class="text-3xl font-black text-emerald-600">~90 - 100%</div>
+                        <div class="text-xs text-slate-500">So sánh giữa số người già và trẻ em tại các tỉnh trọng điểm</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Orphans -->
+            <div id="content-orphans" class="tab-content hidden grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white rounded-3xl p-6 border border-slate-100 card-shadow space-y-6">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-lg text-slate-900 flex items-center gap-2">
+                            <i data-lucide="heart" class="w-5 h-5 text-amber-500"></i> Phân Loại Hoàn Cảnh Trẻ Em Mồ Côi & Trợ Giúp
+                        </h4>
+                        <span class="bg-amber-50 text-amber-700 text-xs px-2.5 py-1 rounded-full font-medium">Nguồn: Bộ LĐ-TB&XH & UNICEF</span>
+                    </div>
+                    <div class="h-64 sm:h-72">
+                        <canvas id="orphansChart"></canvas>
+                    </div>
+                    <div class="bg-slate-50 rounded-2xl p-4 text-xs sm:text-sm text-slate-600 space-y-2 border border-slate-100">
+                        <p><strong>Tác động đại dịch:</strong> Giai đoạn sau đại dịch COVID-19 chứng kiến sự gia tăng đột biến số trẻ em mất đi cha, mẹ hoặc người nuôi dưỡng trực tiếp tại vùng kinh tế trọng điểm phía Nam.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl p-6 border border-slate-100 card-shadow space-y-5 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center font-bold">
+                            <i data-lucide="building-2" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-bold text-lg text-slate-900">Khu Vực Trọng Điểm</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            <strong>TP. Hồ Chí Minh</strong> và <strong>Bình Dương</strong> là hai khu vực tập trung số lượng trẻ em mồ côi cần hỗ trợ tâm lý và an sinh lớn nhất.
+                        </p>
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-100 text-xs text-amber-800">
+                            <strong>Thách thức:</strong> Tập trung biến động lao động di cư lớn, hệ thống bảo trợ xã hội chịu áp lực tải cao.
+                        </div>
+                    </div>
+                    <div class="border-t border-slate-100 pt-4">
+                        <div class="text-xs font-semibold text-slate-400 uppercase">Trợ Cấp Nuôi Dưỡng</div>
+                        <div class="text-3xl font-black text-amber-600">100%</div>
+                        <div class="text-xs text-slate-500">Mục tiêu trợ cấp an sinh xã hội & miễn giảm học phí toàn bộ</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Disabled -->
+            <div id="content-disabled" class="tab-content hidden grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white rounded-3xl p-6 border border-slate-100 card-shadow space-y-6">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-lg text-slate-900 flex items-center gap-2">
+                            <i data-lucide="pie-chart" class="w-5 h-5 text-sky-600"></i> Cơ Cấu Các Dạng Khuyết Tật Tại Việt Nam
+                        </h4>
+                        <span class="bg-sky-50 text-sky-700 text-xs px-2.5 py-1 rounded-full font-medium">Nguồn: Khảo sát VDS - NSO</span>
+                    </div>
+                    <div class="h-64 sm:h-72">
+                        <canvas id="disabledChart"></canvas>
+                    </div>
+                    <div class="bg-slate-50 rounded-2xl p-4 text-xs sm:text-sm text-slate-600 space-y-2 border border-slate-100">
+                        <p><strong>Quy mô:</strong> Việt Nam có khoảng 7,06 triệu người khuyết tật từ 2 tuổi trở lên. Khuyết tật vận động chiếm tỷ trọng cao nhất, tiếp theo là thần kinh và thính giác/thị giác.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-3xl p-6 border border-slate-100 card-shadow space-y-5 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center font-bold">
+                            <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-bold text-lg text-slate-900">Vùng Tỷ Lệ Cao</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Vùng <strong>Đồng bằng sông Cửu Long (7,54%)</strong> và <strong>Bắc Trung Bộ & Duyên hải miền Trung (7,52%)</strong> có tỷ lệ khuyết tật cao nhất cả nước.
+                        </p>
+                        <div class="p-3 bg-sky-50 rounded-xl border border-sky-100 text-xs text-sky-800">
+                            <strong>Nguyên nhân:</strong> Ảnh hưởng di chứng bom độc chiến tranh (Quảng Trị, Quảng Nam) và thiên tai lũ lụt thiên tai diễn ra dai dẳng.
+                        </div>
+                    </div>
+                    <div class="border-t border-slate-100 pt-4">
+                        <div class="text-xs font-semibold text-slate-400 uppercase">Tỷ Lệ Toàn Quốc</div>
+                        <div class="text-3xl font-black text-sky-600">7,06%</div>
+                        <div class="text-xs text-slate-500">Dân số từ 2 tuổi trở lên là người khuyết tật</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regional Spotlight Section -->
+        <section id="regions" class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 card-shadow space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+                        <i data-lucide="map" class="w-6 h-6 text-emerald-600"></i> Bản Đồ Điểm Nóng & Phân Phối Vùng Miền
+                    </h3>
+                    <p class="text-sm text-slate-500">Các khu vực địa phương chịu ảnh hưởng cao cần ưu tiên hỗ trợ</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Region Card 1 -->
+                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/60 space-y-3 hover:border-emerald-400 transition">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-lg">Miền Bắc & ĐBSH</span>
+                        <i data-lucide="user-check" class="w-5 h-5 text-emerald-600"></i>
+                    </div>
+                    <h4 class="font-bold text-base text-slate-900">Thái Bình, Nam Định</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Tỉnh có tốc độ già hóa cao nhất cả nước. Cần đầu tư lớn vào trạm y tế cơ sở và dịch vụ chăm sóc sức khỏe người già tại cộng đồng.
+                    </p>
+                    <div class="text-xs font-semibold text-emerald-700 bg-white p-2.5 rounded-xl border border-slate-100">
+                        Trọng tâm: Chăm sóc Y tế & Dưỡng lão
+                    </div>
+                </div>
+
+                <!-- Region Card 2 -->
+                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/60 space-y-3 hover:border-amber-400 transition">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold px-2.5 py-1 bg-amber-100 text-amber-800 rounded-lg">Đông Nam Bộ</span>
+                        <i data-lucide="heart-pulse" class="w-5 h-5 text-amber-600"></i>
+                    </div>
+                    <h4 class="font-bold text-base text-slate-900">TP. Hồ Chí Minh, Bình Dương</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Khu vực công nghiệp tập trung đông trẻ em mồ côi và gia đình lao động di cư tổn thương. Yêu cầu hỗ trợ sinh kế và giáo dục hòa nhập khẩn cấp.
+                    </p>
+                    <div class="text-xs font-semibold text-amber-700 bg-white p-2.5 rounded-xl border border-slate-100">
+                        Trọng tâm: Bảo trợ Trẻ em & Tâm lý
+                    </div>
+                </div>
+
+                <!-- Region Card 3 -->
+                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/60 space-y-3 hover:border-sky-400 transition">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold px-2.5 py-1 bg-sky-100 text-sky-800 rounded-lg">Miền Trung & ĐBSCL</span>
+                        <i data-lucide="shield" class="w-5 h-5 text-sky-600"></i>
+                    </div>
+                    <h4 class="font-bold text-base text-slate-900">Quảng Nam, Quảng Trị, Huế</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Chịu tỷ lệ khuyết tật cao nhất (7,52% - 7,54%) do ảnh hưởng di chứng chiến tranh và thiên tai. Cần đẩy mạnh trung tâm phục hồi chức năng.
+                    </p>
+                    <div class="text-xs font-semibold text-sky-700 bg-white p-2.5 rounded-xl border border-slate-100">
+                        Trọng tâm: Phục hồi Chức năng & Sinh kế
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Priority Matrix Section -->
+        <section id="priority" class="space-y-6">
+            <div>
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="layers" class="w-6 h-6 text-teal-600"></i> Đánh Giá Cấp Độ Ưu Tiên An Sinh
+                </h3>
+                <p class="text-sm text-slate-500">Mô hình phân bổ nguồn lực dựa trên tính cấp thiết và quy mô tác động</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Level 1: Emergency -->
+                <div class="bg-white rounded-3xl p-6 border-2 border-rose-200 card-shadow space-y-4 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-rose-500 text-white text-[10px] uppercase font-black px-4 py-1 rounded-bl-xl tracking-wider">
+                        Cấp Độ 1
+                    </div>
+                    <div class="w-10 h-10 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center font-bold">
+                        <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-bold text-lg text-slate-900">Ưu Tiên Khẩn Cấp</h4>
+                    <div class="text-xs font-semibold text-rose-600 bg-rose-50 p-2 rounded-lg">
+                        Đối tượng: Trẻ mồ côi đặc biệt & Trẻ khuyết tật nặng
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Tập trung tại các đô thị công nghiệp chịu ảnh hưởng dịch bệnh/di cư (TP.HCM, Bình Dương).
+                    </p>
+                    <ul class="text-xs text-slate-700 space-y-2 pt-2 border-t border-slate-100">
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></i>
+                            <span>Trợ cấp nuôi dưỡng trực tiếp khẩn cấp.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></i>
+                            <span>Bảo đảm học tập & tư vấn tâm lý học đường.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Level 2: Medium-High -->
+                <div class="bg-white rounded-3xl p-6 border-2 border-amber-200 card-shadow space-y-4 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-amber-500 text-white text-[10px] uppercase font-black px-4 py-1 rounded-bl-xl tracking-wider">
+                        Cấp Độ 2
+                    </div>
+                    <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center font-bold">
+                        <i data-lucide="clock" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-bold text-lg text-slate-900">Can Thiệp Dài Hạn</h4>
+                    <div class="text-xs font-semibold text-amber-600 bg-amber-50 p-2 rounded-lg">
+                        Đối tượng: Người khuyết tật vận động / thính giác
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Tập trung tại vùng Duyên hải miền Trung & Đồng bằng sông Cửu Long.
+                    </p>
+                    <ul class="text-xs text-slate-700 space-y-2 pt-2 border-t border-slate-100">
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-amber-500 shrink-0 mt-0.5"></i>
+                            <span>Đào tạo nghề & hỗ trợ việc làm tiếp cận.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-amber-500 shrink-0 mt-0.5"></i>
+                            <span>Nâng cấp hạ tầng tiếp cận công cộng (xe buýt, lối đi).</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Level 3: Structural -->
+                <div class="bg-white rounded-3xl p-6 border-2 border-emerald-200 card-shadow space-y-4 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] uppercase font-black px-4 py-1 rounded-bl-xl tracking-wider">
+                        Cấp Độ 3
+                    </div>
+                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center font-bold">
+                        <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="font-bold text-lg text-slate-900">Thích Ứng Cấu Trúc</h4>
+                    <div class="text-xs font-semibold text-emerald-600 bg-emerald-50 p-2 rounded-lg">
+                        Đối tượng: Hệ thống Người cao tuổi toàn quốc
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Tập trung tại các địa phương có chỉ số già hóa cao (Bến Tre, Thái Bình, Nam Định).
+                    </p>
+                    <ul class="text-xs text-slate-700 space-y-2 pt-2 border-t border-slate-100">
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
+                            <span>Mở rộng phủ sóng Bảo hiểm Y tế 100%.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
+                            <span>Phát triển trung tâm dưỡng lão & y tế gia đình.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solutions & Call-to-Action -->
+        <section id="solutions" class="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+            <div class="max-w-3xl space-y-6">
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white flex items-center gap-2">
+                    <i data-lucide="lightbulb" class="w-7 h-7 text-amber-400"></i> Đề Xuất Giải Pháp An Sinh Cấp Quốc Gia
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-slate-300">
+                    <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700/60 space-y-2">
+                        <div class="font-bold text-emerald-400 text-sm">1. Chính Sách Trợ Cấp</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">Tăng chuẩn trợ cấp an sinh xã hội theo đà lạm phát, đảm bảo mức sống tối thiểu cho nhóm khuyết tật & người già đơn thân.</p>
+                    </div>
+                    <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700/60 space-y-2">
+                        <div class="font-bold text-teal-400 text-sm">2. Y Tế Cộng Đồng</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">Phát triển mạng lưới bác sĩ gia đình và trạm y tế lưu động hỗ trợ phục hồi chức năng tận nhà tại địa phương xa xôi.</p>
+                    </div>
+                    <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700/60 space-y-2">
+                        <div class="font-bold text-sky-400 text-sm">3. Giáo Dục & Sinh Kế</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">Đẩy mạnh xã hội hóa giáo dục hòa nhập, miễn phí nghề kỹ thuật số cho người khuyết tật & thanh niên mồ côi.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Official Data Sources -->
+        <section id="sources" class="bg-white rounded-3xl p-6 border border-slate-100 card-shadow space-y-4">
+            <h4 class="font-bold text-base text-slate-900 flex items-center gap-2">
+                <i data-lucide="link" class="w-5 h-5 text-emerald-600"></i> Nguồn Trích Dẫn Dữ Liệu Chính Thống (2020 - 2023)
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                <a href="https://www.nso.gov.vn/tin-tuc-thong-ke/2024/11/thong-cao-bao-chi-ve-ket-qua-dieu-tra-nguoi-khuyet-tat-nam-2023/" target="_blank" rel="noopener noreferrer" class="p-3 rounded-xl bg-slate-50 border border-slate-200/60 hover:bg-emerald-50 transition flex items-center justify-between group">
+                    <div>
+                        <div class="font-semibold text-slate-800 group-hover:text-emerald-700">Cục Thống kê (NSO)</div>
+                        <div class="text-slate-500">Khảo sát Người khuyết tật VDS 2023</div>
+                    </div>
+                    <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-emerald-600"></i>
+                </a>
+
+                <a href="https://www.unicef.org/vietnam/vi/bao-cao/an-sinh-xa-hoi-dap-ung-gioi-do-tuoi-viet-nam" target="_blank" rel="noopener noreferrer" class="p-3 rounded-xl bg-slate-50 border border-slate-200/60 hover:bg-emerald-50 transition flex items-center justify-between group">
+                    <div>
+                        <div class="font-semibold text-slate-800 group-hover:text-emerald-700">UNICEF Việt Nam</div>
+                        <div class="text-slate-500">Báo cáo An sinh Xã hội Trẻ em</div>
+                    </div>
+                    <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-emerald-600"></i>
+                </a>
+
+                <a href="https://vietnam.unfpa.org/vi/topics/già-hóa-dân-số" target="_blank" rel="noopener noreferrer" class="p-3 rounded-xl bg-slate-50 border border-slate-200/60 hover:bg-emerald-50 transition flex items-center justify-between group">
+                    <div>
+                        <div class="font-semibold text-slate-800 group-hover:text-emerald-700">UNFPA Việt Nam</div>
+                        <div class="text-slate-500">Chuyên đề Già hóa Dân số</div>
+                    </div>
+                    <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-emerald-600"></i>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-100 border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2026 SocialCare VN Dashboard. Thiết kế trực quan hóa dữ liệu an sinh xã hội Việt Nam.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Charts & Interaction -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Smooth Scroll Function
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabName) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            // Remove active styles from buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-teal-700', 'shadow-sm');
+                btn.classList.add('text-slate-600');
+            });
+
+            // Show current tab
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+            // Active button style
+            const activeBtn = document.getElementById(`tab-${tabName}`);
+            activeBtn.classList.add('bg-white', 'text-teal-700', 'shadow-sm');
+            activeBtn.classList.remove('text-slate-600');
+        }
+
+        // Initialize Chart.js Visualizations
+        window.addEventListener('load', () => {
+            // 1. Elderly Chart
+            const ctxElderly = document.getElementById('elderlyChart').getContext('2d');
+            new Chart(ctxElderly, {
+                type: 'line',
+                data: {
+                    labels: ['2015', '2019', '2022', '2026 (Hiện tại)', '2030 (Dự báo)', '2038 (Già hóa)'],
+                    datasets: [{
+                        label: 'Số người cao tuổi (Triệu người)',
+                        data: [10.2, 11.4, 14.2, 16.1, 18.0, 22.3],
+                        borderColor: '#16a34a',
+                        backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointBackgroundColor: '#16a34a',
+                        pointRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: false, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // 2. Orphans Chart
+            const ctxOrphans = document.getElementById('orphansChart').getContext('2d');
+            new Chart(ctxOrphans, {
+                type: 'bar',
+                data: {
+                    labels: ['Mồ côi cả cha lẫn mẹ', 'Mồ côi do Covid-19', 'Mồ côi cha hoặc mẹ', 'Không nguồn nuôi dưỡng'],
+                    datasets: [{
+                        label: 'Số lượng trẻ (ước tính)',
+                        data: [1200, 4400, 18000, 3200],
+                        backgroundColor: ['#f59e0b', '#d97706', '#fbbf24', '#fef3c7'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // 3. Disabled Chart
+            const ctxDisabled = document.getElementById('disabledChart').getContext('2d');
+            new Chart(ctxDisabled, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Vận động', 'Thần kinh/Tâm thần', 'Thính giác/Nói', 'Thị giác', 'Khác'],
+                    datasets: [{
+                        data: [38, 22, 16, 14, 10],
+                        backgroundColor: ['#0284c7', '#38bdf8', '#7dd3fc', '#bae6fd', '#e0f2fe']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 } } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
